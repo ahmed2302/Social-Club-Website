@@ -45,7 +45,7 @@ export default function Header() {
           />
         </div>
         <div className="create">
-          {currentUser !== "" && (
+          {currentUser !== "" ? (
             <>
               <div
                 className="profile-photo show"
@@ -58,6 +58,23 @@ export default function Header() {
               </div>
               <div onClick={handleLogout} className="btn btn-primary">
                 Logout
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                onClick={() => {
+                  navigate("/login");
+                }}
+                className="btn btn-primary">
+                Login
+              </div>
+              <div
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className="btn btn-primary">
+                Register
               </div>
             </>
           )}

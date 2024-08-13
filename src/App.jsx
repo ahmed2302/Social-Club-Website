@@ -22,16 +22,16 @@ export default function App() {
       {alert.bool && <Alert message={alert.msg} />}
       <LoadinPage>
         <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Home />
+              </>
+            }
+          />
           <Route element={<RequireAuth />}>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Header />
-                  <Home />
-                </>
-              }
-            />
             <Route
               path="/createPost"
               element={
