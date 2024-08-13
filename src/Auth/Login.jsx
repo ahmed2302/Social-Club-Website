@@ -10,8 +10,8 @@ import { AlertContext } from "../Context/AlertContext";
 
 export default function Login() {
   const [form, setForm] = useState({
-    username: "AHMED_HAMDY33",
-    password: "123456789",
+    username: "",
+    password: "",
   });
 
   const cookies = new Cookies();
