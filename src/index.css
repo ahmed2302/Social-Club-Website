@@ -254,7 +254,8 @@ main .container {
     display: none;
   }
   main .container {
-    grid-template-columns: 100px auto;
+    /* grid-template-columns: 100px auto; */
+    grid-template-columns: auto calc(100% - 120px);
   }
 }
 
