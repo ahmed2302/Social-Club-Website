@@ -66,7 +66,7 @@ export default function EditPost() {
         setAlert({ msg: "", bool: false });
       }, 3000);
       setLoading(false);
-      navigate("/detailsPage");
+      navigate("/");
     } catch (err) {
       console.log(err);
       setLoading(false);

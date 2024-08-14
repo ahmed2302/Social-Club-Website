@@ -1126,7 +1126,7 @@ main .container {
 }
 
 .commentInput input {
-  flex: 1;
+  flex: 3;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid var(--color-primary);
@@ -1140,6 +1140,7 @@ main .container {
   font-weight: bold;
   border: 1px solid var(--color-primary);
   color: var(--color-primary);
+  flex: 1;
 }
 
 .commentInput button:hover {

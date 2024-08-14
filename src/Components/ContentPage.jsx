@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import defaultImage from "../assets/images/profile-1.jpg";
+import { AlertContext } from "../Context/AlertContext";
 
 export default function ContentPage() {
   const [posts, setPosts] = useState([]);
@@ -19,6 +20,8 @@ export default function ContentPage() {
   const cookies = new Cookies();
   const token = cookies.get("social-media");
   const navigate = useNavigate();
+
+  const { setAlert } = useContext(AlertContext);
 
   const [visibleComments, setVisibleComments] = useState({});
   const [visibleEdit, setVisibleEdit] = useState({});
@@ -49,6 +52,10 @@ export default function ContentPage() {
       })
       .then(() => {
         alert("the post has been deleted successfully");
+        setAlert({ msg: "Post Deleted Successfully", bool: true });
+        setTimeout(() => {
+          setAlert({ msg: "", bool: false });
+        }, 3000);
       })
       .catch((error) => {
         console.log(error.response.data.error_message);
