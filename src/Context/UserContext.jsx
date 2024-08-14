@@ -21,7 +21,7 @@ export default function UserProvider({ children }) {
         setCurretUser(data.data.data);
       })
       .catch(() => {
-        setAlert({ msg: "Welcom, Login To Can Explore Our Site", bool: true });
+        setAlert({ msg: "Login To Can Interact With Our Site", bool: true });
         setTimeout(() => {
           setAlert({ msg: "", bool: false });
         }, 5000);
