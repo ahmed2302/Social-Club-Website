@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import { AlertContext } from "../Context/AlertContext";
 import { SideBarContext } from "../Context/SideBarContext";
+import defaultImage from "../assets/images/profile-1.jpg";
 
 export default function DetailsPage() {
   const [posts, setPosts] = useState([]);
@@ -96,7 +97,10 @@ export default function DetailsPage() {
                   // window.location.pathname = "/detailsPage";
                   navigate("/detailsPage");
                 }}>
-                <img src={post.author.profile_image} alt={"profile Image"} />
+                <img
+                  src={post.author.profile_image || defaultImage}
+                  alt={"profile Image"}
+                />
               </div>
               <div>
                 <h3 className="name">{post.author.name}</h3>
