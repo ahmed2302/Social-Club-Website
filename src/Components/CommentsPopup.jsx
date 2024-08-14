@@ -4,6 +4,7 @@ import { baseUrl, COMMENTS, POSTS } from "../Api/Api";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie";
 import { AlertContext } from "../Context/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CommentsPopup({ id }) {
   const [comments, setComments] = useState([]);
@@ -14,6 +15,8 @@ export default function CommentsPopup({ id }) {
   const token = cookies.get("social-media");
 
   const { setAlert } = useContext(AlertContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`${baseUrl}/${POSTS}/${id}`).then((data) => {
@@ -36,6 +39,15 @@ export default function CommentsPopup({ id }) {
         setTimeout(() => {
           setAlert({ msg: "", bool: false });
         }, 3000);
+      })
+      .catch((err) => {
+        if (err.response.status == 401) {
+          setAlert({ msg: "Please Login To can Comment", bool: true });
+          setTimeout(() => {
+            setAlert({ msg: "", bool: false });
+          }, 3000);
+          navigate("/login");
+        }
       });
   }
 
