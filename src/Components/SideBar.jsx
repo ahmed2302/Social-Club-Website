@@ -8,6 +8,8 @@ import Cookies from "universal-cookie";
 export default function SideBar() {
   const { currentUser } = useContext(UserContext);
   const { setLinksState } = useContext(SideBarContext);
+  const { sideBarIcon } = useContext(SideBarContext);
+
   const [hide, setHide] = useState({
     notifications: false,
     messages: false,
@@ -58,8 +60,9 @@ export default function SideBar() {
     setLinksState(active);
   }, [active, setLinksState]);
 
+  console.log(sideBarIcon);
   return (
-    <div className="left">
+    <div className={sideBarIcon ? "left active" : "left"}>
       <div
         className="profile"
         onClick={() => {

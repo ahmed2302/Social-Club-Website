@@ -165,7 +165,7 @@ export default function ContentPage() {
     if (
       typeof story.author.profile_image == "string" &&
       typeof story.image == "string" &&
-      key < 5
+      key < 15
     ) {
       return (
         <div

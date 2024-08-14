@@ -5,8 +5,10 @@ export const SideBarContext = createContext();
 
 export default function SideBarProvider({ children }) {
   const [linksState, setLinksState] = useState("");
+  const [sideBarIcon, setSideBarIcon] = useState(false);
   return (
-    <SideBarContext.Provider value={{ linksState, setLinksState }}>
+    <SideBarContext.Provider
+      value={{ linksState, setLinksState, sideBarIcon, setSideBarIcon }}>
       {children}
     </SideBarContext.Provider>
   );

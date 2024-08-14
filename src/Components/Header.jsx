@@ -4,10 +4,12 @@ import { UserContext } from "../Context/UserContext";
 import logo from "../../public/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from "../Context/AlertContext";
+import { SideBarContext } from "../Context/SideBarContext";
 
 export default function Header() {
   const cookies = new Cookies();
   const { currentUser } = useContext(UserContext);
+  const { setSideBarIcon } = useContext(SideBarContext);
   const { setAlert } = useContext(AlertContext);
   const navigate = useNavigate();
 
@@ -36,6 +38,13 @@ export default function Header() {
             className="logo">
             Social Club
           </h2>
+          <div
+            onClick={() => {
+              setSideBarIcon((prev) => !prev);
+            }}
+            className="side-bar-icon">
+            <i className="uil uil-bars"></i>
+          </div>
         </div>
         <div className="search-bar">
           <i className="uil uil-search"></i>
