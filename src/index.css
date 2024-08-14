@@ -1228,6 +1228,7 @@ main .container {
 
 .detailsPage .profile .handle {
   font-size: 1.5vw;
+  word-break: break-word;
 }
 
 .detailsPage .details .posts-count,
@@ -1235,6 +1236,34 @@ main .container {
   text-align: center;
   margin: 10px 0;
   font-size: 1.5vw;
+  word-break: break-word;
+}
+
+@media (max-width: 500px) {
+  .detailsPage .container {
+    grid-template-columns: 100%;
+  }
+  .detailsPage .container .details {
+    position: fixed;
+    z-index: 10;
+    left: -200px;
+    top: 63px;
+    width: 200px;
+    border: 1px solid;
+  }
+
+  .detailsPage .container .details.active {
+    left: 15px;
+  }
+  .detailsPage .details .profile .profile-photo {
+    width: 100px;
+  }
+
+  .detailsPage .profile .handle,
+  .detailsPage .details .posts-count,
+  .detailsPage .details .comment-count {
+    font-size: 16px;
+  }
 }
 
 .detailsPage .content .posts-wrapper {

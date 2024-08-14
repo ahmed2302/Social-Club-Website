@@ -29,15 +29,19 @@ export default function Header() {
     <header className="header">
       <div className="container">
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <img style={{ width: "40px" }} src={logo} alt="logo" />
-          <h2
-            onClick={() => {
-              // window.location.pathname = "/";
-              navigate("/");
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              cursor: "pointer",
             }}
-            className="logo">
-            Social Club
-          </h2>
+            onClick={() => {
+              navigate("/");
+            }}>
+            <img style={{ width: "40px" }} src={logo} alt="logo" />
+            <h2 className="logo">Social Club</h2>
+          </div>
           <div
             onClick={() => {
               setSideBarIcon((prev) => !prev);

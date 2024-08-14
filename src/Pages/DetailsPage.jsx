@@ -8,6 +8,7 @@ import Loading from "../Components/Loading";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import { AlertContext } from "../Context/AlertContext";
+import { SideBarContext } from "../Context/SideBarContext";
 
 export default function DetailsPage() {
   const [posts, setPosts] = useState([]);
@@ -18,6 +19,7 @@ export default function DetailsPage() {
   const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const { setAlert } = useContext(AlertContext);
+  const { sideBarIcon } = useContext(SideBarContext);
 
   useEffect(() => {
     axios
@@ -161,7 +163,7 @@ export default function DetailsPage() {
       ) : (
         <div className="detailsPage">
           <div className="container">
-            <div className="details">
+            <div className={sideBarIcon ? "details active" : "details"}>
               <div
                 className="profile"
                 onClick={() => {
