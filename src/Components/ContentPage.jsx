@@ -6,6 +6,7 @@ import CommentsPopup from "./CommentsPopup";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
+import defaultImage from "../assets/images/profile-1.jpg";
 
 export default function ContentPage() {
   const [posts, setPosts] = useState([]);
@@ -59,127 +60,7 @@ export default function ContentPage() {
     console.log(postId);
     navigate("/editPost");
     cookies.set("targetPost", postId);
-
-    //   axios
-    // .post(`https://tarmeezacademy.com/api/v1/posts/${id}`, formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     authorization: `Bearer ${token}`,
-    //   },
-    // })
-    // .then((response) => {
-    //   showNotifications("Post Updated Successfuly");
-    //   window.location.reload();
-    // })
-    // .catch((error) => {
-    //   alert(error.response.data.message);
-    // });
   };
-
-  const postsList = posts.map((post, key) => {
-    if (
-      typeof post.author.profile_image == "string" &&
-      typeof post.image == "string"
-    ) {
-      return (
-        <div className="post" key={key}>
-          <div className="profile-info">
-            <div>
-              <div
-                className="profile-photo"
-                onClick={() => {
-                  cookies.set("targetUserId", post.author.id);
-                  // window.location.pathname = "/detailsPage";
-                  navigate("/detailsPage");
-                }}>
-                <img src={post.author.profile_image} alt={"profile Image"} />
-              </div>
-              <div>
-                <h3 className="name">{post.author.name}</h3>
-                <small>{post.created_at}</small>
-              </div>
-            </div>
-            {currentUser.id === post.author.id && (
-              <span onClick={() => handleEditClick(post.id)} className="edit">
-                <div
-                  style={{ display: visibleEdit[post.id] ? "flex" : "none" }}
-                  className="popup">
-                  <p>
-                    <i
-                      onClick={() => handleDeletePost(post.id)}
-                      className="uil uil-cancel"></i>
-                  </p>
-                  <p>
-                    <i
-                      onClick={() => handleEditPost(post.id)}
-                      className="uil uil-edit"></i>
-                  </p>
-                </div>
-                <i className="uil uil-ellipsis-h"></i>
-              </span>
-            )}
-          </div>
-          <div className="post-body">{post.body}</div>
-          <div className="post-photo">
-            <img src={post.image} alt={"post Image"} />
-          </div>
-          <div className="action-buttons">
-            <div className="interaction-buttons">
-              <span>
-                <i
-                  onClick={(e) => {
-                    e.target.classList.add("liked");
-                  }}
-                  className="uil uil-heart"></i>
-              </span>
-              <span onClick={() => handleCommentClick(post.id)}>
-                <i className="uil uil-comment-dots"></i>
-                <span className="comments-count">{post.comments_count}</span>
-              </span>
-              <span>
-                <i className="uil uil-share-alt"></i>
-              </span>
-            </div>
-            <div className="bookmark">
-              <span>
-                <i className="uil uil-bookmark-full"></i>
-              </span>
-            </div>
-          </div>
-          {visibleComments[post.id] && <CommentsPopup id={post.id} />}
-        </div>
-      );
-    }
-  });
-
-  const filteredPosts = posts.filter((post) => {
-    if (
-      typeof post.author.profile_image == "string" &&
-      typeof post.image == "string"
-    ) {
-      return post;
-    }
-  });
-
-  const storiesList = filteredPosts.map((story, key) => {
-    if (
-      typeof story.author.profile_image == "string" &&
-      typeof story.image == "string" &&
-      key < 15
-    ) {
-      return (
-        <div
-          key={key}
-          className="story"
-          style={{ backgroundImage: `url(${story.image})` }}>
-          <div className="profile-photo">
-            <img src={story.author.profile_image} alt="img" />
-          </div>
-          <p className="name">{story.author.name}</p>
-        </div>
-      );
-    }
-  });
 
   useEffect(() => {
     setLoad(true);
@@ -188,6 +69,108 @@ export default function ContentPage() {
       setLoad(false);
     });
   }, [page, setLoad]);
+
+  const filteredPosts = posts.filter((post) => typeof post.image == "string");
+
+  const postsList = posts.map((post, key) => {
+    return (
+      <div className="post" key={key}>
+        <div className="profile-info">
+          <div>
+            <div
+              className="profile-photo"
+              onClick={() => {
+                cookies.set("targetUserId", post.author.id);
+                navigate("/detailsPage");
+              }}>
+              <img
+                src={
+                  typeof post.author.profile_image === "string"
+                    ? post.author.profile_image
+                    : defaultImage
+                }
+                alt="img"
+              />
+            </div>
+            <div>
+              <h3 className="name">{post.author.name}</h3>
+              <small>{post.created_at}</small>
+            </div>
+          </div>
+          {currentUser.id === post.author.id && (
+            <span onClick={() => handleEditClick(post.id)} className="edit">
+              <div
+                style={{ display: visibleEdit[post.id] ? "flex" : "none" }}
+                className="popup">
+                <p>
+                  <i
+                    onClick={() => handleDeletePost(post.id)}
+                    className="uil uil-cancel"></i>
+                </p>
+                <p>
+                  <i
+                    onClick={() => handleEditPost(post.id)}
+                    className="uil uil-edit"></i>
+                </p>
+              </div>
+              <i className="uil uil-ellipsis-h"></i>
+            </span>
+          )}
+        </div>
+        <div className="post-body">{post.body}</div>
+        {typeof post.image === "string" && (
+          <div className="post-photo">
+            <img src={post.image} alt={"post Image"} />
+          </div>
+        )}
+        <div className="action-buttons">
+          <div className="interaction-buttons">
+            <span>
+              <i
+                onClick={(e) => {
+                  e.target.classList.add("liked");
+                }}
+                className="uil uil-heart"></i>
+            </span>
+            <span onClick={() => handleCommentClick(post.id)}>
+              <i className="uil uil-comment-dots"></i>
+              <span className="comments-count">{post.comments_count}</span>
+            </span>
+            <span>
+              <i className="uil uil-share-alt"></i>
+            </span>
+          </div>
+          <div className="bookmark">
+            <span>
+              <i className="uil uil-bookmark-full"></i>
+            </span>
+          </div>
+        </div>
+        {visibleComments[post.id] && <CommentsPopup id={post.id} />}
+      </div>
+    );
+  });
+
+  const storiesList = filteredPosts.map((story, key) => {
+    return (
+      <div
+        key={key}
+        className="story"
+        style={{ backgroundImage: `url(${story.image})` }}>
+        <div className="profile-photo">
+          <img
+            src={
+              typeof story.author.profile_image === "string"
+                ? story.author.profile_image
+                : defaultImage
+            }
+            alt="img"
+          />
+        </div>
+        <p className="name">{story.author.name}</p>
+      </div>
+    );
+  });
 
   useEffect(() => {
     let isFetching = false;

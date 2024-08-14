@@ -28,6 +28,7 @@
 
 html {
   font-size: 13px;
+  /* scrollbar-width: none; */
 }
 
 *,
@@ -72,7 +73,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -428,6 +429,7 @@ main .container {
   position: relative;
   overflow: auto;
   scrollbar-width: none;
+  border-radius: var(--card-border-radius);
 }
 
 .middel .stories-wrapper .story {
@@ -437,7 +439,7 @@ main .container {
   background-size: cover;
   background-position: center;
   height: 180px;
-  min-width: 150px;
+  min-width: 120px;
   border-radius: var(--card-border-radius);
   padding: 10px;
   color: var(--color-dark);
@@ -462,7 +464,7 @@ main .container {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 3px solid var(--color-light);
+  border: 2px solid var(--color-light);
 }
 
 .middel .story .name {
@@ -974,7 +976,8 @@ main .container {
   color: gray;
   transition: 0.3s;
 }
-.form-custom input {
+.form-custom input,
+.form-custom textarea {
   padding: 20px;
   outline: none;
   border: none;
@@ -986,29 +989,40 @@ main .container {
   box-shadow: 0 0 5px inset rgb(152, 152, 152);
 }
 
-.form-custom input:placeholder-shown + label {
+.form-custom textarea {
+  resize: none;
+  height: 100px;
+}
+
+.form-custom input:placeholder-shown + label,
+.form-custom textarea:placeholder-shown + label {
   top: 20px;
   opacity: 0;
   visibility: hidden;
 }
 
-.form-custom input:focus {
+.form-custom input:focus,
+.form-custom textarea:focus {
   box-shadow: 0 0 5px inset rgb(152, 152, 152);
 }
 
-.form-custom input:focus:not(:valid) {
+.form-custom input:focus:not(:valid),
+.form-custom textarea:focus:not(:valid) {
   border-bottom: 3px solid #dc3545;
 }
 
-.form-custom input:focus:valid {
+.form-custom input:focus:valid,
+.form-custom textarea:focus:valid {
   border-bottom: 3px solid #198754;
 }
 
-.form-custom input:not(:focus):valid {
+.form-custom input:not(:focus):valid,
+.form-custom textarea:not(:focus):valid {
   background-color: rgba(0, 255, 0, 0.2);
 }
 
-.form-custom input:not(:focus):not(:placeholder-shown):not(:valid) {
+.form-custom input:not(:focus):not(:placeholder-shown):not(:valid),
+.form-custom textarea:not(:focus):not(:placeholder-shown):not(:valid) {
   background-color: rgba(255, 0, 0, 0.2);
 }
 
@@ -1022,7 +1036,7 @@ main .container {
         rgba(255, 255, 255, 0.6) 0%,
         rgba(255, 255, 255, 0.6) 100%
       ),
-      url("../assets/images/form.jpg");
+      url("./assets/images/form.jpg");
   }
 
   .custom-form {
@@ -1033,7 +1047,8 @@ main .container {
     width: 100%;
   }
 
-  .form input {
+  .form input,
+  .form textarea {
     width: 100%;
   }
 }

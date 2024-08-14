@@ -93,7 +93,7 @@ export default function CreatePost() {
               className="form-custom"
               controlId="exampleForm.ControlInput2">
               <Form.Control
-                type="text"
+                as="textarea"
                 name="body"
                 placeholder="Post Body..."
                 value={post.body}

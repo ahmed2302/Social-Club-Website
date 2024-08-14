@@ -60,7 +60,6 @@ export default function SideBar() {
     setLinksState(active);
   }, [active, setLinksState]);
 
-  console.log(sideBarIcon);
   return (
     <div className={sideBarIcon ? "left active" : "left"}>
       <div
