@@ -82,82 +82,82 @@ export default function DetailsPage() {
   let reversedPosts = [...posts].reverse();
 
   const postsList = reversedPosts.map((post, key) => {
-    if (
-      typeof post.author.profile_image == "string" &&
-      typeof post.image == "string"
-    ) {
-      return (
-        <div className="post" key={key}>
-          <div className="profile-info">
-            <div>
-              <div
-                className="profile-photo"
-                onClick={() => {
-                  cookies.set("targetUserId", post.author.id);
-                  // window.location.pathname = "/detailsPage";
-                  navigate("/detailsPage");
-                }}>
-                <img
-                  src={post.author.profile_image || defaultImage}
-                  alt={"profile Image"}
-                />
-              </div>
-              <div>
-                <h3 className="name">{post.author.name}</h3>
-                <small>{post.created_at}</small>
-              </div>
+    return (
+      <div className="post" key={key}>
+        <div className="profile-info">
+          <div>
+            <div
+              className="profile-photo"
+              onClick={() => {
+                cookies.set("targetUserId", post.author.id);
+                navigate("/detailsPage");
+              }}>
+              <img
+                src={
+                  typeof post.author.profile_image === "string"
+                    ? post.author.profile_image
+                    : defaultImage
+                }
+                alt="img"
+              />
             </div>
-            {currentUser.id === post.author.id && (
-              <span onClick={() => handleEditClick(post.id)} className="edit">
-                <div
-                  style={{ display: visibleEdit[post.id] ? "flex" : "none" }}
-                  className="popup">
-                  <p>
-                    <i
-                      onClick={() => handleDeletePost(post.id)}
-                      className="uil uil-cancel"></i>
-                  </p>
-                  <p>
-                    <i
-                      onClick={() => handleEditPost(post.id)}
-                      className="uil uil-edit"></i>
-                  </p>
-                </div>
-                <i className="uil uil-ellipsis-h"></i>
-              </span>
-            )}
+            <div>
+              <h3 className="name">{post.author.name}</h3>
+              <small>{post.created_at}</small>
+            </div>
           </div>
-          <div className="post-body">{post.body}</div>
+          {currentUser.id === post.author.id && (
+            <span onClick={() => handleEditClick(post.id)} className="edit">
+              <div
+                style={{ display: visibleEdit[post.id] ? "flex" : "none" }}
+                className="popup">
+                <p>
+                  <i
+                    onClick={() => handleDeletePost(post.id)}
+                    className="uil uil-cancel"></i>
+                </p>
+                <p>
+                  <i
+                    onClick={() => handleEditPost(post.id)}
+                    className="uil uil-edit"></i>
+                </p>
+              </div>
+              <i className="uil uil-ellipsis-h"></i>
+            </span>
+          )}
+        </div>
+        <div className="post-body">{post.body}</div>
+        {typeof post.image === "string" && (
           <div className="post-photo">
             <img src={post.image} alt={"post Image"} />
           </div>
-          <div className="action-buttons">
-            <div className="interaction-buttons">
-              <span>
-                <i
-                  onClick={(e) => {
-                    e.target.classList.add("liked");
-                  }}
-                  className="uil uil-heart"></i>
-              </span>
-              <span onClick={() => handleCommentClick(post.id)}>
-                <i className="uil uil-comment-dots"></i>
-                <span className="comments-count">{post.comments_count}</span>
-              </span>
-              <span>
-                <i className="uil uil-share-alt"></i>
-              </span>
-            </div>
-            <div className="bookmark">
-              <span>
-                <i className="uil uil-bookmark-full"></i>
-              </span>
-            </div>
+        )}
+        <div className="action-buttons">
+          <div className="interaction-buttons">
+            <span>
+              <i
+                onClick={(e) => {
+                  e.target.classList.add("liked");
+                }}
+                className="uil uil-heart"></i>
+            </span>
+            <span onClick={() => handleCommentClick(post.id)}>
+              <i className="uil uil-comment-dots"></i>
+              <span className="comments-count">{post.comments_count}</span>
+            </span>
+            <span>
+              <i className="uil uil-share-alt"></i>
+            </span>
           </div>
-          {visibleComments[post.id] && <CommentsPopup id={post.id} />}
+          <div className="bookmark">
+            <span>
+              <i className="uil uil-bookmark-full"></i>
+            </span>
+          </div>
         </div>
-      );
-    }
+        {visibleComments[post.id] && <CommentsPopup id={post.id} />}
+      </div>
+    );
   });
 
   return (
@@ -178,7 +178,10 @@ export default function DetailsPage() {
                 <div className="profile-photo">
                   <img
                     src={
-                      userData !== "" ? userData.profile_image : profileImage
+                      typeof userData.profile_image === "string" &&
+                      userData !== ""
+                        ? userData.profile_image
+                        : defaultImage
                     }
                     alt="img"
                   />
